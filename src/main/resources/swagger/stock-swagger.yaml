@@ -1,0 +1,102 @@
+swagger: '2.0'
+info:
+  description: API for Stock Online
+  version: 1.0.0
+  title: Stock API
+  contact:
+    name: Wallef
+    url: 'https://github.com/WallefFA'
+    email: wallef.fa@gmail.com
+  license:
+    name: Apache License Version 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0'
+host: 'http://localhost:5000'
+basePath: /
+schemes:
+- "https"
+- "http"
+tags:
+  - name: product-resource
+    description: Product Resource
+paths:
+  /products:
+    post:
+      tags:
+        - product-resource
+      summary: Save products.
+      operationId: saveUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: product
+          description: product
+          required: true
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/Sons-Of-Anarchy/Product/1.0#/definitions/Product'
+      responses:
+        '200':
+          description: OK
+        '201':
+          description: Product saved with success
+        '401':
+          description: User Unauthorized
+        '403':
+          description: Access Forbidden
+        '500':
+          description: Error on Server
+  /products/{id}:
+      get:
+        tags:
+          - product-resource
+        summary: Find products by id.
+        operationId: findUsingGET
+        produces:
+          - application/json
+        parameters:
+          - name: id
+            in: path
+            description: id
+            required: true
+            type: integer
+            format: int64
+        responses:
+          '200':
+            description: Product return with success
+            schema:
+              $ref: 'https://api.swaggerhub.com/domains/Sons-Of-Anarchy/Product/1.0#/definitions/Product'
+          '401':
+            description: User Unauthorized
+          '403':
+            description: Access Forbidden
+          '404':
+            description: Product not found
+          '500':
+            description: Error on Server
+      delete:
+        tags:
+          - product-resource
+        summary: Delete products.
+        operationId: deleteUsingDELETE
+        produces:
+          - '*/*'
+        parameters:
+          - name: id
+            in: path
+            description: id
+            required: true
+            type: integer
+            format: int64
+        responses:
+          '200':
+            description: Product deleted with success
+          '401':
+            description: User Unauthorized
+          '403':
+            description: Access Forbidden
+          '404':
+            description: Product not found
+          '500':
+            description: Error on Server
